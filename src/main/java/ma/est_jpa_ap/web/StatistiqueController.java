@@ -1,39 +1,17 @@
-package ma.est_jpa_ap.web;
-
+package ma.est_jpa_ap.controllers;
 
 import ma.est_jpa_ap.entites.Statistique;
-import ma.est_jpa_ap.service.StatistiqueService;
+import ma.est_jpa_ap.services.StatistiqueService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/statistiques")
+@RequestMapping("/statistiques")
 public class StatistiqueController {
-    private final StatistiqueService statistiqueService;
 
-    public StatistiqueController(StatistiqueService statistiqueService) {
-        this.statistiqueService = statistiqueService;
-    }
 
-    @PostMapping
-    public Statistique createStatistique(@RequestBody Statistique statistique) {
-        return statistiqueService.createStatistique(statistique);
-    }
 
-    @GetMapping
-    public List<Statistique> getAllStatistiques() {
-        return statistiqueService.getAllStatistiques();
-    }
-
-    @GetMapping("/{id}")
-    public Statistique getStatistiqueById(@PathVariable Long id) {
-        return statistiqueService.getStatistiqueById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteStatistique(@PathVariable Long id) {
-        statistiqueService.deleteStatistique(id);
-    }
 }
-

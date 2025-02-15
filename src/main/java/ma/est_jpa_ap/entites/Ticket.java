@@ -1,25 +1,34 @@
 package ma.est_jpa_ap.entites;
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
+import java.time.LocalDateTime;
+
 @Entity
+@Data
 @Table(name = "tickets")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter @Setter
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "agent_id")
-    private Agent agent;
-
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    private String service;
+    private long numTicket;
+    private LocalDateTime createdAt;
+    //private LocalDateTime processedAt;
+    private LocalDateTime completedAt;
     @Enumerated(EnumType.STRING)
-    private  StatusTik status;
+    private StatusTik status;
 
-    private String dateHeure;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Tache tache;
 }
+    /*@ManyToOne
+    @JoinColumn(name = "session_id")
+    private Session session;*/
+
+
+
+

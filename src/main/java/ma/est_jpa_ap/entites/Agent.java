@@ -1,60 +1,41 @@
 package ma.est_jpa_ap.entites;
-
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
+
 @Entity
-@Table(name = "agents")
+@Table(name = "agent")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter@Setter
 public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+
+    private String nom;
+    private String prenom;
+
+    @Column(unique = true, nullable = false)
+    private String email;
     private String password;
+    private boolean isActive = false;
 
-    @OneToMany(mappedBy = "agent")
-    private List<Ticket> tickets;
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
-    @OneToOne(mappedBy = "agent", cascade = CascadeType.ALL)
-    private Statistique statistique;
+    @OneToOne(mappedBy = "agent",cascade = CascadeType.ALL)
+    private Session session;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "categorie_id")
+    private Categorie categorie;
 
-    public String getUsername() {
-        return username;
-    }
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Tache tache;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public Statistique getStatistique() {
-        return statistique;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public void setStatistique(Statistique statistique) {
-        this.statistique = statistique;
-    }
 }
